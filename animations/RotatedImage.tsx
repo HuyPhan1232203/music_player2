@@ -1,5 +1,5 @@
-import { StyleProp, StyleSheet } from "react-native";
-import React, { useEffect, useRef, useState } from "react";
+import { StyleProp } from "react-native";
+import React, { useEffect } from "react";
 import FastImage, { ImageStyle } from "react-native-fast-image";
 import { unknowTrackImageUri } from "@/styles/images";
 import Animated, {
@@ -35,7 +35,7 @@ const RotatedImage: React.FC<imageProps> = ({ source, style }) => {
     if (playing) {
       rotation.value = withRepeat(
         withTiming(rotation.value + 360, {
-          duration: 3000,
+          duration: 5000,
           easing: Easing.linear,
         }),
         -1,

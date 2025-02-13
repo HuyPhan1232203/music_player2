@@ -36,6 +36,7 @@ const OnPlayTrack = ({ style }: ViewProps) => {
         <FastImage
           source={{ uri: displayedTrack.artwork ?? unknowTrackImageUri }}
           style={styles.trackArtworkImage}
+          resizeMode={FastImage.resizeMode.contain}
         />
 
         <View style={styles.trackTitleContainer}>

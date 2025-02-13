@@ -9,46 +9,62 @@ import MovingText from "@/animations/MovingText";
 import { PlayerControls } from "@/components/PlayerControl";
 import PlayerProgressBar from "@/components/PlayerProgressBar";
 import PlayerVolumeBar from "@/components/PlayerVolumeBar";
-
+import { LinearGradient } from "react-native-linear-gradient";
+import usePlayerBackground from "@/hooks/usePlayerBackground";
+import { unknowTrackImageUri } from "@/styles/images";
 const playerScreen = () => {
   const activeTrack: Track | undefined = useActiveTrack();
   const { top, bottom } = useSafeAreaInsets();
+  const { imageColors } = usePlayerBackground(
+    activeTrack?.artwork ?? unknowTrackImageUri
+  );
   const threshHold: number = 30;
   return (
-    <View style={styles.overlayContainer}>
-      <DismissPlayerSymbol />
-      <View style={{ flex: 1, marginTop: top + 70, marginBottom: bottom }}>
-        <View style={styles.artworkContainer}>
-          <View>
-            <RotatedImage
-              source={activeTrack?.artwork}
-              style={styles.artwork}
+    <LinearGradient
+      style={{ flex: 1 }}
+      colors={
+        imageColors
+          ? [imageColors.background, imageColors.primary]
+          : [colors.backgound]
+      }
+    >
+      <View style={styles.overlayContainer}>
+        <DismissPlayerSymbol />
+        <View style={{ flex: 1, marginTop: top + 70, marginBottom: bottom }}>
+          <View style={styles.artworkContainer}>
+            <View>
+              <RotatedImage
+                source={activeTrack?.artwork}
+                style={styles.artwork}
+              />
+            </View>
+          </View>
+
+          <View
+            style={[
+              styles.titleContainer,
+              activeTrack?.title?.length < threshHold && {
+                alignItems: "center",
+              },
+            ]}
+          >
+            <MovingText
+              animationThreshold={threshHold}
+              text={activeTrack?.title ?? ""}
+              style={styles.titleText}
             />
           </View>
+          <View style={styles.artistContainer}>
+            <Text style={styles.artist}>
+              {activeTrack?.artist ?? "Unknow artist"}
+            </Text>
+          </View>
+          <PlayerProgressBar style={{ marginTop: 32 }} />
+          <PlayerControls style={{ marginTop: 40 }} />
+          <PlayerVolumeBar style={{ marginTop: 50, marginBottom: 30 }} />
         </View>
-
-        <View
-          style={[
-            styles.titleContainer,
-            activeTrack?.title?.length < threshHold && { alignItems: "center" },
-          ]}
-        >
-          <MovingText
-            animationThreshold={threshHold}
-            text={activeTrack?.title ?? ""}
-            style={styles.titleText}
-          />
-        </View>
-        <View style={styles.artistContainer}>
-          <Text style={styles.artist}>
-            {activeTrack?.artist ?? "Unknow artist"}
-          </Text>
-        </View>
-        <PlayerProgressBar style={{ marginTop: 32 }} />
-        <PlayerControls style={{ marginTop: 40 }} />
-        <PlayerVolumeBar style={{ marginTop: 50, marginBottom: 30 }} />
       </View>
-    </View>
+    </LinearGradient>
   );
 };
 const DismissPlayerSymbol = () => {
@@ -83,7 +99,7 @@ const styles = StyleSheet.create({
   overlayContainer: {
     ...defaultStyles.container,
     paddingHorizontal: screenPadding.horizontal,
-    backgroundColor: "#333",
+    backgroundColor: "rgba(0,0,0,0.5)",
   },
   artworkContainer: {
     shadowOffset: {

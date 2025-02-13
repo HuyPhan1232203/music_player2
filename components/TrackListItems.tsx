@@ -27,6 +27,7 @@ const TrackListItems = ({
         <FastImage
           source={{ uri: track.artwork ?? unknowTrackImageUri }}
           style={styles.img}
+          resizeMode={FastImage.resizeMode.contain}
         >
           {isActiveTrack &&
             (playing ? (
