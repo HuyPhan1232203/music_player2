@@ -12,7 +12,6 @@ try {
 }
 const App = () => {
   useLogTrackPlayerState();
-
   const handleTrackPlayerLoaded = useCallback(() => {
     SplashScreen.hideAsync();
   }, []);
@@ -30,7 +29,6 @@ const App = () => {
     </SafeAreaProvider>
   );
 };
-
 const RootNavigation = () => (
   <Stack>
     <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
@@ -46,5 +44,4 @@ const RootNavigation = () => (
     />
   </Stack>
 );
-
 export default App;

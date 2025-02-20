@@ -4,27 +4,9 @@ import { defaultStyles } from "@/styles/default";
 import TrackList from "@/components/TrackList";
 import { screenPadding } from "@/constraints/token";
 import useSeachBar from "@/hooks/useSeachBar";
-import axios from "axios";
-import lib from "@/assets/data/library.json";
-import { Track } from "react-native-track-player";
+import { useSongData } from "@/assets/data/data";
 const SongsScreen = () => {
-  const [loading, setLoading] = useState(true);
-  const [data, setData] = useState<Track[]>([]);
-  const fetchData = async () => {
-    try {
-      const response = await axios.get(
-        "https://6721f1212108960b9cc22b59.mockapi.io/songs"
-      );
-      setData(response.data);
-    } catch {
-      console.log("no data");
-    } finally {
-      setLoading(false);
-    }
-  };
-  useEffect(() => {
-    fetchData();
-  }, []);
+  const { data, isLoading } = useSongData();
   const search = useSeachBar({
     SearchBarOption: {
       placeholder: "Find in songs",
@@ -40,12 +22,15 @@ const SongsScreen = () => {
   };
   return (
     <View style={defaultStyles.container}>
-      {loading ? (
+      {isLoading ? (
         <View style={defaultStyles.center}>
           <ActivityIndicator size="large" />
         </View>
       ) : (
         <View style={{ paddingHorizontal: screenPadding.horizontal }}>
+          <View>
+            <Text style={defaultStyles.text}>sdakjdnsakjndjask</Text>
+          </View>
           <TrackList tracks={handleSearchTrackTitle()} />
         </View>
       )}
