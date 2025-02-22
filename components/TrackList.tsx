@@ -1,9 +1,8 @@
-import { FlatList, FlatListProps, Text, View } from "react-native";
-import React, { useLayoutEffect, useState } from "react";
+import { FlatList, Text, View } from "react-native";
+import React from "react";
 import { utilsStyles } from "@/styles/default";
 import TrackListItems from "./TrackListItems";
 import TrackPlayer, { Track } from "react-native-track-player";
-import { colors } from "@/constraints/token";
 export type TrackListProps = {
   tracks: Track[];
 };
