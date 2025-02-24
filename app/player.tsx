@@ -12,7 +12,8 @@ import PlayerVolumeBar from "@/components/PlayerVolumeBar";
 import { LinearGradient } from "react-native-linear-gradient";
 import usePlayerBackground from "@/hooks/usePlayerBackground";
 import { unknowTrackImageUri } from "@/styles/images";
-import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+import useTrackPlayerRepeat from "@/hooks/useTrackPlayerRepeat";
+import RepeatToggle from "@/components/RepeatToggle";
 const playerScreen = () => {
   const activeTrack: Track | undefined = useActiveTrack();
   const { top, bottom } = useSafeAreaInsets();
@@ -63,13 +64,7 @@ const playerScreen = () => {
           <PlayerProgressBar style={{ marginTop: 32 }} />
           <PlayerControls style={{ marginTop: 40 }} />
           <PlayerVolumeBar style={{ marginTop: 50, marginBottom: 30 }} />
-          {/* <TouchableOpacity style={{ alignItems: "center" }}>
-            <MaterialCommunityIcons
-              name="repeat-once"
-              size={40}
-              color={colors.icon}
-            />
-          </TouchableOpacity> */}
+          <RepeatToggle />
         </View>
       </View>
     </LinearGradient>
